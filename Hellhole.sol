@@ -49,7 +49,7 @@ contract Hellhole {
                 payouts[i].paid = true;
             }
         }
-        uint winnings = pot * (senderAmount / lastSendersTotal);
+        uint winnings = (pot * senderAmount) / lastSendersTotal;
         msg.sender.transfer(winnings);
     }
 }
