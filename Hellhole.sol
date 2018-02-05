@@ -1,5 +1,9 @@
 pragma solidity ^0.4.19;
 
+/*
+    Relatively straightforward implementation of the original scheme specified here:
+    https://www.reddit.com/r/Buttcoin/comments/7sws4d/ladies_and_gentlemen_i_have_an_innovative_idea/
+*/
 contract Hellhole {
     uint constant minimum_click_amount = 1 finney;
     uint constant last_n_payouts = 100;
@@ -11,7 +15,7 @@ contract Hellhole {
         bool paid;
     }
     
-    Click[last_n_payouts] public payouts;
+    LastNBid[last_n_payouts] public payouts;
     uint public next_payout_pointer = 0;
     uint public end_time;
     uint public pot = 0;
@@ -30,7 +34,7 @@ contract Hellhole {
         end_time = now + click_time_extension;
         pot += msg.value;
     
-        payouts[next_payout_pointer] = Click({
+        payouts[next_payout_pointer] = LastNBid({
             sender: msg.sender,
             amount: msg.value,
             paid: false
